@@ -1,0 +1,28 @@
+Metadata-Version: 2.1
+Name: ipyrdf
+Version: 0.1.0
+Summary: Jupyterlab widgets to rdf interactions
+Home-page: https://github.com/jupyrdf/ipyrdf
+Author: ipyrdf contributors
+Author-email: dane.freeman@gtri.gatech.edu
+License: BSD-3-Clause
+Description: # ipyrdf
+        
+        Collection of base jupyterlab widgets to interact with rdf
+Keywords: widgets,semantic,sparql
+Platform: UNKNOWN
+Classifier: Framework :: IPython
+Classifier: Framework :: Jupyter
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Provides-Extra: ld
+Provides-Extra: widget
+Provides-Extra: utest
+Provides-Extra: atest
+Provides-Extra: docs
+Provides-Extra: dev
