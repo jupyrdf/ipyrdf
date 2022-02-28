@@ -3,6 +3,7 @@ import argparse
 from IPython.core.magic import needs_local_scope, register_cell_magic
 from rdflib import Graph
 
+
 from ..util import get_variable, set_variable
 from .describe_tool import DescribeTool
 from .rdf_loader import from_rdf
@@ -10,6 +11,12 @@ from .rdf_loader import from_rdf
 parser = argparse.ArgumentParser(description="Turtle Magic.")
 parser.add_argument(
     "varname", type=str, help="path to the variable from the local namespace"
+)
+parser.add_argument(
+    "--id", 
+    type=str, 
+    help="identifier for the graph", 
+    default=None,
 )
 parser.add_argument(
     "--append",
@@ -20,6 +27,12 @@ parser.add_argument(
     "--base",
     help="append parsed graph to base graph",
     type=str,
+)
+parser.add_argument(
+    "--store", 
+    help="specify store for the graph",
+    type=str,
+    default=None,
 )
 
 parser.add_argument(
@@ -54,7 +67,8 @@ def turtle(parameters: str, cell: str, local_ns: dict = None):
     """
     args = parser.parse_args(parameters.strip().split(" "))
     varname = args.varname
-    graph = Graph()
+    store = get_variable(args.store, local_ns) if args.store else None
+    graph = Graph(store=store, identifier=args.id)
 
     if args.append and "@prefix" not in cell:
         var = get_variable(varname, local_ns)
@@ -65,16 +79,17 @@ def turtle(parameters: str, cell: str, local_ns: dict = None):
         cell = "\n".join(get_prefix_string(graph)) + cell
 
     value = graph.parse(data=cell, format="turtle")
-
+        
     if args.base:
         base = get_variable(args.base, local_ns)
-        value = base + value
+        
     if args.append:
         assert varname, "Varname must exist"
         base = get_variable(varname, local_ns)
         if isinstance(base, DescribeTool):
             base = base.graph
-        value = base + value
+
+    value += base
 
     set_uri = False
     if isinstance(args.uris, list):
