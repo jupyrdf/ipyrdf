@@ -82,14 +82,14 @@ def turtle(parameters: str, cell: str, local_ns: dict = None):
         
     if args.base:
         base = get_variable(args.base, local_ns)
-        
+        value = value + base
+
     if args.append:
         assert varname, "Varname must exist"
         base = get_variable(varname, local_ns)
         if isinstance(base, DescribeTool):
             base = base.graph
-
-    value += base
+        value = value + base
 
     set_uri = False
     if isinstance(args.uris, list):
