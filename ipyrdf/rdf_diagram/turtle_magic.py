@@ -13,9 +13,9 @@ parser.add_argument(
     "varname", type=str, help="path to the variable from the local namespace"
 )
 parser.add_argument(
-    "--id", 
-    type=str, 
-    help="identifier for the graph", 
+    "--id",
+    type=str,
+    help="identifier for the graph",
     default=None,
 )
 parser.add_argument(
@@ -29,7 +29,7 @@ parser.add_argument(
     type=str,
 )
 parser.add_argument(
-    "--store", 
+    "--store",
     help="specify store for the graph",
     type=str,
     default=None,
@@ -67,7 +67,7 @@ def turtle(parameters: str, cell: str, local_ns: dict = None):
     """
     args = parser.parse_args(parameters.strip().split(" "))
     varname = args.varname
-    store = get_variable(args.store, local_ns) if args.store else None
+    store = get_variable(args.store, local_ns) if args.store else "default"
     graph = Graph(store=store, identifier=args.id)
 
     if args.append and "@prefix" not in cell:
@@ -79,7 +79,7 @@ def turtle(parameters: str, cell: str, local_ns: dict = None):
         cell = "\n".join(get_prefix_string(graph)) + cell
 
     value = graph.parse(data=cell, format="turtle")
-        
+
     if args.base:
         base = get_variable(args.base, local_ns)
         value = value + base
