@@ -12,7 +12,7 @@ from rdflib.plugins.sparql import parserutils
 from rdflib.plugins.sparql.parserutils import CompValue, ParseResults
 from rdflib.term import Literal, URIRef, Variable
 
-from .rdf_diagram import (
+from ..rdf_diagram.rdf_diagram import (
     RDFElement,
     RDFLiteralBinding,
     RDFPartition,

@@ -1,8 +1,8 @@
 from IPython.core.magic import needs_local_scope, register_cell_magic
 from rdflib.plugins.sparql import parser
 
-from ..widgets.widget_sparql import SparqlWidget
-from .util import set_variable
+from .widget_sparql import SparqlWidget
+from ..util import set_variable
 
 
 @register_cell_magic

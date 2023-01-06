@@ -5,9 +5,9 @@ IPython-specific widgets
 # Distributed under the terms of the Modified BSD License.
 
 from .sparql_magic import sparql
-from .widget_sparql import SparqlWidget
+# from .widget_sparql import SparqlWidget
 
 __all__ = [
-    "SparqlWidget",
+    # "SparqlWidget",
     "sparql",
 ]

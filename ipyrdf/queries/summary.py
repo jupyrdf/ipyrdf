@@ -1,5 +1,6 @@
 """Collect generic queries to help summary activities"""
 from typing import Dict, Iterator, List, Tuple, Type
+import pandas as pd
 
 import ujson
 from jinja2 import Template
@@ -89,3 +90,14 @@ def describe(graph: Graph, uris: List[URIRef]) -> Graph:
             for spo in graph.triples(pattern):
                 result.add(spo)
     return result
+
+
+def count_distint(graph) -> pd.DataFrame:
+    data = {
+        "Triples":len(graph),
+        "Distinct Subjects": count_distinct_subjects(graph),
+        "Distinct Predicates": count_distinct_predicates(graph),
+        "Distinct Objects": count_distinct_objects(graph)
+    }
+
+    return pd.DataFrame([data]).T.rename(columns={0:"Number"})#.style.format("{:,.0f}").render()
